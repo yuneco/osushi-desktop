@@ -3,7 +3,7 @@
     class="SushiRoot"
     ref="el"
     :style="{
-      transform: `translate(${pos.x}px, ${pos.y}px)`
+      transform: `translate(${pos.x}px, ${pos.y}px) rotate(${pos.r}deg)`
     }"
   >
     <span class="name">
@@ -14,9 +14,11 @@
 
 <style lang="scss" scoped>
 .SushiRoot {
-  position: relative;
+  position: absolute;
   width: 80px;
   height: 40px;
+  left: -40px;
+  top: -20px;
   background-color: #fff;
   border: 1px solid #aaa;
   border-radius: 12px;
@@ -59,8 +61,8 @@ export default defineComponent({
   setup(props, ctx) {
     const el = ref(null)
     useClick(el)
-    useDragMove(el, (dx, dy) => {
-      ctx.emit('move', new Pos(dx, dy))
+    useDragMove(el, (dx, dy, x, y) => {
+      ctx.emit('move', new Pos(dx, dy), new Pos(x, y))
     })
     const state = reactive({})
     return { el, state }

@@ -1,6 +1,6 @@
 import { onMounted, onBeforeUnmount, Ref, reactive } from 'vue'
 
-type PosHandler = (x: number, y: number) => void
+type PosHandler = (dx: number, dy: number, x: number, y: number) => void
 
 const resolveRef = (elRef: Ref) => {
   const value = elRef.value
@@ -29,7 +29,7 @@ const useDragMove = (elRef: Ref, onMoveHandler?: PosHandler) => {
     lastPos.x = ev.clientX
     lastPos.y = ev.clientY
     if (onMoveHandler) {
-      onMoveHandler(dx, dy)
+      onMoveHandler(dx, dy, dragPos.x, dragPos.y)
     }
   }
 
