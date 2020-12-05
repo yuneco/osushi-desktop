@@ -1,38 +1,38 @@
-import { onMounted, onBeforeUnmount, Ref } from "vue";
+import { onMounted, onBeforeUnmount, Ref } from 'vue'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const Electron = require("electron");
+const Electron = require('electron')
 
 const onErnter = (ev: MouseEvent) => {
-  ev.preventDefault();
-  Electron.remote.getCurrentWindow().setIgnoreMouseEvents(false);
-};
+  ev.preventDefault()
+  Electron.remote.getCurrentWindow().setIgnoreMouseEvents(false)
+}
 
 const onLeave = (ev: MouseEvent) => {
-  ev.preventDefault();
+  ev.preventDefault()
   Electron.remote
     .getCurrentWindow()
-    .setIgnoreMouseEvents(true, { forward: true });
-};
+    .setIgnoreMouseEvents(true, { forward: true })
+}
 
 const resolveRef = (elRef: Ref) => {
-  const value = elRef.value;
+  const value = elRef.value
   if (!value) {
-    return null;
+    return null
   }
-  return value as HTMLElement;
-};
+  return value as HTMLElement
+}
 
 const useClick = (elRef: Ref) => {
   onMounted(() => {
-    const targetDom = resolveRef(elRef);
-    targetDom?.addEventListener("mouseenter", onErnter);
-    targetDom?.addEventListener("mouseleave", onLeave);
-  });
+    const targetDom = resolveRef(elRef)
+    targetDom?.addEventListener('mouseenter', onErnter)
+    targetDom?.addEventListener('mouseleave', onLeave)
+  })
   onBeforeUnmount(() => {
-    const targetDom = resolveRef(elRef);
-    targetDom?.removeEventListener("mouseenter", onErnter);
-    targetDom?.removeEventListener("mouseleave", onLeave);
-  });
-};
+    const targetDom = resolveRef(elRef)
+    targetDom?.removeEventListener('mouseenter', onErnter)
+    targetDom?.removeEventListener('mouseleave', onLeave)
+  })
+}
 
-export default useClick;
+export default useClick

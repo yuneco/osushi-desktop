@@ -2,9 +2,8 @@
   <div
     class="SushiRoot"
     ref="el"
-    @click="onClick"
     :style="{
-      transform: `translate(${dragPos.x}px, ${dragPos.y}px)`,
+      transform: `translate(${pos.x}px, ${pos.y}px)`
     }"
   >
     <span class="name">
@@ -23,7 +22,7 @@
   border-radius: 12px;
   filter: drop-shadow(0 2px 10px #00000088);
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     width: 110%;
     height: 40%;
@@ -45,22 +44,26 @@
 </style>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from "vue";
-import useClick from "../compositions/useClick";
-import useDragMove from "../compositions/useDragMove";
-export default defineComponent({
-  setup() {
-    const el = ref(null);
-    useClick(el);
-    const { dragPos } = useDragMove(el);
-    const state = reactive({
-      count: 0,
-    });
+import { defineComponent, reactive, ref, PropType } from 'vue'
+import useClick from '../compositions/useClick'
+import useDragMove from '../compositions/useDragMove'
+import Pos from '../core/Pos'
 
-    const onClick = () => {
-      state.count++;
-    };
-    return { el, state, onClick, dragPos };
+export default defineComponent({
+  props: {
+    pos: {
+      type: Object as PropType<Pos>,
+      default: () => new Pos()
+    }
   },
-});
+  setup(props, ctx) {
+    const el = ref(null)
+    useClick(el)
+    useDragMove(el, (dx, dy) => {
+      ctx.emit('move', new Pos(dx, dy))
+    })
+    const state = reactive({})
+    return { el, state }
+  }
+})
 </script>

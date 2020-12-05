@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Sushi></Sushi>
+    <Sushi @move="onSushiDrag" :pos="state.pos" />
   </div>
 </template>
 
@@ -11,19 +11,26 @@
 </style>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import HelloWorld from "@/components/HelloWorld.vue";
-import Sushi from "@/components/Sushi.vue";
+import { defineComponent, reactive } from 'vue'
+import Sushi from '@/components/Sushi.vue'
+import Pos from '@/core/Pos'
 
 export default defineComponent({
-  name: "Home",
+  name: 'Home',
   components: {
-    Sushi,
+    Sushi
   },
-  data() {
-    return {
-      focused: false,
-    };
-  },
-});
+  setup() {
+    const state = reactive({
+      pos: new Pos()
+    })
+
+    const onSushiDrag = (p: Pos) => {
+      console.log('onSushiDrag', p)
+      state.pos = state.pos.add(p)
+    }
+
+    return { state, onSushiDrag }
+  }
+})
 </script>
