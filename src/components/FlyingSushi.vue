@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Sushi @move="onSushiDrag" :pos="state.sushiPos" />
+    <Sushi @move="onSushiDrag" :neta="neta" :pos="state.sushiPos" />
   </div>
 </template>
 
@@ -16,6 +16,7 @@ import Sushi from '@/components/Sushi.vue'
 import Pos from '@/core/Pos'
 import MatterWorld from '@/logics/MatterWorld'
 import { r2a } from '@/core/MathUtil'
+import { SushiNeta } from '@/logics/SushiAssets'
 
 export default defineComponent({
   name: 'FlyingSushi',
@@ -26,6 +27,10 @@ export default defineComponent({
     initialPos: {
       type: Object as PropType<Pos>,
       default: () => new Pos()
+    },
+    neta: {
+      type: String as PropType<SushiNeta>,
+      default: 'maguro'
     },
     world: Object as PropType<MatterWorld>
   },
@@ -38,7 +43,7 @@ export default defineComponent({
       console.log('onSushiDrag', p)
     }
 
-    console.log('Fly!')
+    console.log('Fly! --> ' + props.neta)
     onMounted(() => {
       state.sushiPos = new Pos(props.initialPos.x, props.initialPos.y)
       props.world?.addRect(

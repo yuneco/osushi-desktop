@@ -2,12 +2,13 @@
   <div>
     <div class="sushiStage">
       <Clickable>
-        <SushiRail @pick="addSushi" />
+        <SushiRail @pick="onPick" />
       </Clickable>
       <FlyingSushi
         v-for="model in state.sushiModels"
         :key="model.id"
         :world="world"
+        :neta="model.neta"
         :initialPos="model.initialPos"
       />
     </div>
@@ -26,6 +27,7 @@ import MatterWorld from '@/logics/MatterWorld'
 import SushiModel from '@/logics/SushiModel'
 import userMousePos from '@/compositions/useMouePos'
 import Pos from '@/core/Pos'
+import { SushiNeta } from '@/logics/SushiAssets'
 
 type State = {
   sushiModels: SushiModel[]
@@ -45,8 +47,10 @@ export default defineComponent({
       sushiModels: []
     })
 
-    const addSushi = () => {
-      state.sushiModels.push(new SushiModel(new Pos(mousePos.x, mousePos.y)))
+    const onPick = (neta: SushiNeta) => {
+      state.sushiModels.push(
+        new SushiModel(neta, new Pos(mousePos.x, mousePos.y))
+      )
     }
 
     onMounted(() => {
@@ -56,7 +60,7 @@ export default defineComponent({
     return {
       world,
       state,
-      addSushi
+      onPick
     }
   }
 })

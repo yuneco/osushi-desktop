@@ -8,7 +8,6 @@ const useMousePos = () => {
   const onMove = (ev: PointerEvent): void => {
     mousePos.x = ev.clientX
     mousePos.y = ev.clientY
-    console.log('moved', mousePos)
   }
   const onMoveTouch = (ev: TouchEvent): void => {
     mousePos.x = ev.touches[0].clientX

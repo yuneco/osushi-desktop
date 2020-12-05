@@ -3,11 +3,12 @@
     class="SushiRoot"
     ref="el"
     :style="{
-      transform: `translate(${pos.x}px, ${pos.y}px) rotate(${pos.r}deg)`
+      transform: `translate(${pos.x}px, ${pos.y}px) rotate(${pos.r}deg)`,
+      color: state.sushiAsset.color
     }"
   >
     <span class="name">
-      MAGURO
+      {{ state.sushiAsset.name }}
     </span>
   </div>
 </template>
@@ -28,7 +29,7 @@
     position: absolute;
     width: 110%;
     height: 40%;
-    background-color: salmon;
+    background-color: currentColor;
     left: -5%;
     top: -5%;
     border-radius: 4px;
@@ -50,12 +51,17 @@ import { defineComponent, reactive, ref, PropType } from 'vue'
 import useClick from '../compositions/useClick'
 import useDragMove from '../compositions/useDragMove'
 import Pos from '../core/Pos'
+import { SushiNeta, sushiAssets } from '@/logics/SushiAssets'
 
 export default defineComponent({
   props: {
     pos: {
       type: Object as PropType<Pos>,
       default: () => new Pos()
+    },
+    neta: {
+      type: String as PropType<SushiNeta>,
+      default: 'maguro'
     }
   },
   setup(props, ctx) {
@@ -64,7 +70,9 @@ export default defineComponent({
     useDragMove(el, (dx, dy, x, y) => {
       ctx.emit('move', new Pos(dx, dy), new Pos(x, y))
     })
-    const state = reactive({})
+    const state = reactive({
+      sushiAsset: sushiAssets[props.neta]
+    })
     return { el, state }
   }
 })
