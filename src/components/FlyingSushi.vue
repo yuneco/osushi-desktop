@@ -23,7 +23,7 @@ export default defineComponent({
     Sushi
   },
   props: {
-    pos: {
+    initialPos: {
       type: Object as PropType<Pos>,
       default: () => new Pos()
     },
@@ -31,7 +31,6 @@ export default defineComponent({
   },
   setup(props) {
     const state = reactive({
-      dragPos: new Pos(),
       sushiPos: new Pos()
     })
 
@@ -41,9 +40,16 @@ export default defineComponent({
 
     console.log('Fly!')
     onMounted(() => {
-      props.world?.addRect(50, 0, 80, 40, xyr => {
-        state.sushiPos = new Pos(xyr.x, xyr.y, r2a(xyr.r))
-      })
+      state.sushiPos = new Pos(props.initialPos.x, props.initialPos.y)
+      props.world?.addRect(
+        props.initialPos.x,
+        props.initialPos.y,
+        80,
+        40,
+        xyr => {
+          state.sushiPos = new Pos(xyr.x, xyr.y, r2a(xyr.r))
+        }
+      )
     })
 
     return { state, onSushiDrag }
