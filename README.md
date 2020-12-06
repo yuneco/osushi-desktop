@@ -1,24 +1,18 @@
-# sushi
+# Pick Shushi Anytime on Your Desktop!!!
 
-## Project setup
-```
-yarn install
-```
+<img src="docs/img/icon.svg" width="400">
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+This app support your osushi-life anytime.
 
-### Compiles and minifies for production
-```
-yarn build
-```
+<img src="docs/img/mainimg.png">
 
-### Lints and fixes files
-```
-yarn lint
-```
+## Download
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- [Mac](release/sushi-0.1.0.dmg)
+- [Windows](release/sushi_0.1.0.exe)
+
+## How to Use
+
+- Pick and stack sushi as you like.
+- Cmd + R (Ctrl + R) to restart.
+∏
