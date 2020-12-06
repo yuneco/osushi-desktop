@@ -3,8 +3,9 @@
     <TurnDish
       v-for="model in state.dishes"
       :key="model.id"
-      @pick="onPick"
+      @pick="onPick(model)"
       :neta="model.neta"
+      :color="model.color"
     />
   </div>
 </template>
@@ -20,7 +21,7 @@
 <script lang="ts">
 import { defineComponent, reactive, onMounted } from 'vue'
 import TurnDish from './TurnDish.vue'
-import { SushiNeta } from '@/logics/SushiAssets'
+import { SushiNeta, sushiAssets, allNetas } from '@/logics/SushiAssets'
 import DishModel from '@/logics/DishModel'
 import { rundomFrom } from '@/core/MathUtil'
 
@@ -37,11 +38,14 @@ export default defineComponent({
     const state = reactive<State>({
       dishes: []
     })
-    const onPick = (neta: SushiNeta) => {
-      ctx.emit('pick', neta)
+    const onPick = (model: DishModel) => {
+      ctx.emit('pick', model.neta)
+      model.picked = true
     }
     const addDish = () => {
-      const dish = new DishModel(rundomFrom(['maguro', 'tamago', 'aji']))
+      const neta = rundomFrom(allNetas)
+      const color = sushiAssets[neta].color
+      const dish = new DishModel(neta, color)
       state.dishes.push(dish)
       setTimeout(() => {
         state.dishes.shift()

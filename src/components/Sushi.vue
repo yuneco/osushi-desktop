@@ -4,7 +4,7 @@
     ref="el"
     :style="{
       transform: `translate(${pos.x}px, ${pos.y}px) rotate(${pos.r}deg)`,
-      color: state.sushiAsset.color
+      backgroundImage: `url(/imgs/${neta}.svg)`
     }"
   >
     <span class="name">
@@ -16,32 +16,24 @@
 <style lang="scss" scoped>
 .SushiRoot {
   position: absolute;
-  width: 80px;
+  width: 90px;
   height: 40px;
   left: -40px;
   top: -20px;
-  background-color: #fff;
-  border: 1px solid #aaa;
-  border-radius: 12px;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: contain;
   filter: drop-shadow(0 2px 10px #00000088);
-  &::before {
-    content: '';
-    position: absolute;
-    width: 110%;
-    height: 40%;
-    background-color: currentColor;
-    left: -5%;
-    top: -5%;
-    border-radius: 4px;
-  }
   .name {
     display: block;
     position: relative;
-    top: 20px;
+    top: 24px;
+    left: 55%;
     text-align: center;
-    font-size: 11px;
+    font-size: 8px;
     pointer-events: none;
     user-select: none;
+    color: #aaa;
   }
 }
 </style>

@@ -49,8 +49,8 @@ export default defineComponent({
       props.world?.addRect(
         props.initialPos.x,
         props.initialPos.y,
-        80,
-        40,
+        90,
+        35,
         xyr => {
           state.sushiPos = new Pos(xyr.x, xyr.y, r2a(xyr.r))
         }
