@@ -6,6 +6,7 @@
       @pick="onPick(model)"
       :neta="model.neta"
       :color="model.color"
+      :picked="model.picked"
     />
   </div>
 </template>
@@ -21,7 +22,7 @@
 <script lang="ts">
 import { defineComponent, reactive, onMounted } from 'vue'
 import TurnDish from './TurnDish.vue'
-import { SushiNeta, sushiAssets, allNetas } from '@/logics/SushiAssets'
+import { sushiAssets, allNetas } from '@/logics/SushiAssets'
 import DishModel from '@/logics/DishModel'
 import { rundomFrom } from '@/core/MathUtil'
 
